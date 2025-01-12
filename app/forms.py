@@ -1,8 +1,8 @@
 from flask_wtf import FlaskForm  # подключение шаблона для создания собственных форм
-from wtforms import StringField, PasswordField, BooleanField, \
+from wtforms import StringField, PasswordField, BooleanField, TextAreaField, \
     SubmitField  # подключение полей для ввода строк и паролей, расстановки галочек, кнопки входа
 from wtforms.validators import DataRequired  # подключение валидатора для проверки пустого поля
-from wtforms.validators import ValidationError, Email, EqualTo  # ValidationError-создание собственного валидатора,
+from wtforms.validators import ValidationError, Email, EqualTo, URL  # ValidationError-создание собственного валидатора,
 # Email-проверка соответствия почты установленным правилам, EqualTo- проверка совпадения полей формы
 from app.models import User  # подключение модели пользователей из базы данных
 
@@ -31,4 +31,15 @@ class RegForm(FlaskForm):  # создание формы для регистра
         if user is not None:  # если пользователя удалось найти
             raise ValidationError('Пользователь с такой почтой зарегистрирован') # возврат ошибки пользователю
 
+
+class TaskForm(FlaskForm):  # создание формы для добавления задач
+    body = TextAreaField('Текст задачи', validators=[DataRequired()]) # поле для текста задач
+    link = StringField('Ссылка на файл', validators=[DataRequired(), URL()]) # поле для ссылки на файл
+    answer = StringField('Правильный ответ', validators=[DataRequired()]) # поле для правильного ответа к задаче
+    author = StringField('Источник', validators=[DataRequired()]) # поле для ввода источника задачи
+    submit = SubmitField('Добавить задачу')
+
+    def validate_answer(self,answer): # проверка, что число в ответе целое
+        if not answer.data.isdigit(): # проверка,что в строке только цифры
+            raise ValidationError('В ответе должны быть только цифры') # возврат ошибки пользователю
 

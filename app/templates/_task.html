@@ -1,0 +1,8 @@
+<table>
+    <tr valign="top"><p><b>Задача №{{ task.id }}</b></p></tr>
+    <tr valign="top"><p>{{ task.body }}</p></tr><!--показ текста задачи-->
+    <tr valign="top"><p><a href="{{ task.link }}">Скачать файл</a></p></tr><!--ссылка на скачивание файла задачи-->
+    <tr valign="top"><p><input type="text" id="{{ task.id }}" name="answer" required minlength="4" maxlength="10" size="10" /></p></tr>
+    <tr valign="top"><p><b>Источник: {{ task.author }}</b></p></tr><!--показ имени автора задачи-->
+<hr>
+</table>
