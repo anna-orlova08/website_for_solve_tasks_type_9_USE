@@ -37,6 +37,7 @@ class TaskForm(FlaskForm):  # создание формы для добавле�
     link = StringField('Ссылка на файл', validators=[DataRequired(), URL()]) # поле для ссылки на файл
     answer = StringField('Правильный ответ', validators=[DataRequired()]) # поле для правильного ответа к задаче
     author = StringField('Источник', validators=[DataRequired()]) # поле для ввода источника задачи
+    link_solution = StringField('Ссылка на решение',validators=[DataRequired(), URL()]) # поле для ссылки на решение
     submit = SubmitField('Добавить задачу')
 
     def validate_answer(self,answer): # проверка, что число в ответе целое

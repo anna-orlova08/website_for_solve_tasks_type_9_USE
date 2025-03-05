@@ -32,6 +32,13 @@ method- используемый метод(post- отправка данных 
             <span style="color:red;">[{{ error }}]</span><!--показ сообщения об ошибке красным цветом-->
         {% endfor %}
     </p>
+     <p>
+        {{ form.link_solution.label }}<br><!--подпись названия поля-->
+        {{ form.link_solution(size=50) }}<br><!--создание поля для ввода ссылки на файл размером 50 символов-->
+        {% for error in form.link_solution.errors %}<!--для каждой ошибки в списке ошибок-->
+            <span style="color:red;">[{{ error }}]</span><!--показ сообщения об ошибке красным цветом-->
+        {% endfor %}
+    </p>
      <p>{{ form.submit() }}</p><!--кнопка входа-->
 </form>
 <p><a href="/main">Вернуться на главную</a></p>

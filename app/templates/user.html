@@ -15,5 +15,8 @@
     </tr>
 </table>
 <hr>
+{% for task in tasks %}<!--для каждой задачи в списке задач-->
+{% include '_task.html' %}
+{% endfor %}
 
 {% endblock %}

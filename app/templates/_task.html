@@ -1,8 +1,19 @@
-<table>
+<table id="{{ task.id }}">
     <tr valign="top"><p><b>Задача №{{ task.id }}</b></p></tr>
     <tr valign="top"><p>{{ task.body }}</p></tr><!--показ текста задачи-->
     <tr valign="top"><p><a href="{{ task.link }}">Скачать файл</a></p></tr><!--ссылка на скачивание файла задачи-->
-    <tr valign="top"><p><input type="text" id="{{ task.id }}" name="answer" required minlength="4" maxlength="10" size="10" /></p></tr>
+    {% if current_user.task_is_solved(task) %}
+    <tr valign="top"><p>Правильный ответ: {{ task.answer }}</p></tr>
+    <tr valign="top"><p>Ваш ответ: {{ solved_tasks.select().where(solved_tasks.c.user_id==current_user.id, solved_tasks.c.task_id==task.id).params()['answer'] }} </p></tr>
+    <tr valign="top"><p><a href="{{ task.link_solution }}">Ссылка на решение задачи</a></p></tr>
+    {% else %}
+    <tr valign="top">
+        <form method="get" action="../result/{{ task.id }}" autocomplete="off">
+        <p><input type="text" name="answer" required minlength="1" maxlength="10" size="10" />
+            <input type="submit" value="Проверить"></p>
+        </form>
+    </tr>
+    {% endif %}
     <tr valign="top"><p><b>Источник: {{ task.author }}</b></p></tr><!--показ имени автора задачи-->
 <hr>
 </table>
